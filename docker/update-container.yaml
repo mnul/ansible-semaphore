@@ -1,6 +1,7 @@
 ---
 - hosts: docker  # Target the 'docker' group in your inventory
   become: true   # Run tasks with elevated privileges
+  ignore_unreachable: true  # Ignore unreachable/offline hosts
 
   tasks:
     - name: Pull images with docker-compose
