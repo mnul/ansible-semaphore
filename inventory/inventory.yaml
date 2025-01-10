@@ -52,7 +52,6 @@ all:
         docker:
           hosts:
             docker-core:
-            sync:
             paperless:
             immich:
             rezepte:          
