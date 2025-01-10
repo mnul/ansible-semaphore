@@ -1,6 +1,6 @@
 all:
   children:
-    land:
+    land:  # Devices on Landstraße location
       hosts:
         nas:
           ansible_host: 10.0.0.20
@@ -17,34 +17,102 @@ all:
           ansible_host: 10.0.0.47
         argon:
           ansible_host: 10.0.0.10
-        pbs:
-          ansible_host: 10.0.0.14
+        #pbs:
+        #  ansible_host: 10.0.0.14
+        rezepte:
+          ansible_host: 10.0.0.42
+        joplin:
+          ansible_host: 10.0.0.49
+        homarr:
+          ansible_host: 10.0.0.25
+        jdown:
+          ansible_host: 10.0.0.44
+        ansible:
+          ansible_host: 10.0.0.50
+        vscode:
+          ansible_host: 10.0.0.51
+        speedtest:
+          ansible_host: 10.0.0.48
+        send:
+          ansible_host: 10.0.0.53
+        semaphore:
+          ansible_host: 10.0.0.55
+        netboot:
+          ansible_host: 10.0.0.23
+        media:
+          ansible_host: 10.11.0.3
+        filesrv:
+          ansible_host: 10.0.0.254 
       children:
         fileserver:
           hosts:
             nas:
-            unifi:
+            media:            
+            filesrv:
         docker:
           hosts:
             docker-core:
             sync:
             paperless:
             immich:
+            rezepte:          
+            joplin:           
+            homarr:           
+            jdown:            
+            speedtest:        
+            send:             
+            netboot:          
           vars: 
             compose_file: /docker  # General variable for docker hosts
         bare_metal:
           hosts:
             argon:
-            pbs:
+            #pbs:
         debian:
           hosts:
             nas:
             docker-core:
             immich:
+            rezepte:          
+            joplin:           
+            homarr:           
+            jdown:            
+            ansible:          
+            vscode:           
+            speedtest:        
+            send:             
+            semaphore:        
+            netboot:          
+            media:            
+            filesrv:          
         ubuntu:
           hosts:
             unifi:
-    exposed:
+    exposed:  # Devices accessible from the internet
       hosts:
         docker-core:
         immich:
+        joplin:           
+        jdown:
+    see:  # Devices on Landstraße location
+      hosts:
+        futro-seestr:  
+          ansible_host: 10.1.0.5
+        unifi-see: 
+          ansible_host: 10.1.0.15
+        omv: 
+          ansible_host: 10.1.0.10
+      children:
+        bare_metal:
+          hosts:
+            futro-seestr: 
+            omv: 
+        ubuntu:
+          hosts:
+            unifi-see: 
+        debian:
+          hosts:
+            omv: 
+        fileserver:
+          hosts:
+            omv: 
