@@ -6,7 +6,7 @@
     - name: Pull images with docker-compose
       community.docker.docker_compose_v2:  # Use the updated module
         project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
-        pull: true                         # Pull the latest images 
+        pull: always                       # Pull the latest images (use 'always' instead of True)
 
     - name: Start containers in detached mode
       community.docker.docker_compose_v2:  # Use the updated module
