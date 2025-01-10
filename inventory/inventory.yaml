@@ -1,0 +1,50 @@
+all:
+  children:
+    land:
+      hosts:
+        nas:
+          ansible_host: 10.0.0.20
+        unifi:
+          ansible_host: 10.0.0.21
+        docker-core:
+          ansible_host: 10.0.0.22
+        sync:
+          ansible_host: 10.0.0.26
+        paperless:
+          ansible_host: 10.0.0.30
+          compose_file: /home/paperless/paperless-ngx  # Specific variable for paperless
+        immich:
+          ansible_host: 10.0.0.47
+        argon:
+          ansible_host: 10.0.0.10
+        pbs:
+          ansible_host: 10.0.0.14
+      children:
+        fileserver:
+          hosts:
+            nas:
+            unifi:
+        docker:
+          hosts:
+            docker-core:
+            sync:
+            paperless:
+            immich:
+          vars: 
+            compose_file: /docker  # General variable for docker hosts
+        bare_metal:
+          hosts:
+            argon:
+            pbs:
+        debian:
+          hosts:
+            nas:
+            docker-core:
+            immich:
+        ubuntu:
+          hosts:
+            unifi:
+    exposed:
+      hosts:
+        docker-core:
+        immich:
