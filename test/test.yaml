@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: Gather OS facts
+      gather_facts: true
+
+    - name: Print OS distribution
+      debug:
+        msg: "OS Distribution: {{ ansible_distribution }}"
+
+    - name: Print OS version
+      debug:
+        msg: "OS Version: {{ ansible_distribution_version }}"
+
+    - name: Print OS family
+      debug:
+        msg: "OS Family: {{ ansible_os_family }}"
