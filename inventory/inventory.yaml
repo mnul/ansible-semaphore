@@ -94,14 +94,15 @@ all:
         immich:
         joplin:           
         jdown:
-    see:  # Devices on Landstraße location
+    see:  # Devices on Seestraße location
       hosts:
-        futro-seestr:  
+        futro-seestr: 
           ansible_host: 10.1.0.5
         unifi-see: 
           ansible_host: 10.1.0.15
         omv: 
           ansible_host: 10.1.0.10
+          compose_file: /srv/dev-disk-by-label-HGST8TB/shares/docker/ 
       children:
         bare_metal:
           hosts:
@@ -116,3 +117,6 @@ all:
         fileserver:
           hosts:
             omv: 
+        docker:
+          hosts:
+            omv:
