@@ -1,9 +1,7 @@
 ---
 - hosts: all
+  gather_facts: true 
   tasks:
-    - name: Gather OS facts
-      gather_facts: true
-
     - name: Print OS distribution
       debug:
         msg: "OS Distribution: {{ ansible_distribution }}"
