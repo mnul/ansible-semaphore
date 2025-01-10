@@ -4,15 +4,15 @@
 
   tasks:
     - name: Pull images with docker-compose
-      community.docker.docker_compose:
+      community.docker.docker_compose_v2:  # Use the updated module
         project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
-        pull: true                         # Pull the latest images
+        command: pull                      # Specify the 'pull' command
 
     - name: Start containers in detached mode
-      community.docker.docker_compose:
+      community.docker.docker_compose_v2:  # Use the updated module
         project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
-        state: present                     # Ensure containers are running
-        detached: true                     # Run containers in the background
+        command: up                       # Specify the 'up' command
+        detach: true                      # Run containers in the background
 
     - name: Prune unused Docker objects
       community.docker.docker_prune:
