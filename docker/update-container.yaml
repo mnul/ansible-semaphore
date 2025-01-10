@@ -1,0 +1,22 @@
+---
+- hosts: docker  # Target the 'docker' group in your inventory
+  become: true   # Run tasks with elevated privileges
+
+  tasks:
+    - name: Pull images with docker-compose
+      community.docker.docker_compose:
+        project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
+        pull: true                         # Pull the latest images
+
+    - name: Start containers in detached mode
+      community.docker.docker_compose:
+        project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
+        state: present                     # Ensure containers are running
+        detached: true                     # Run containers in the background
+
+    - name: Prune unused Docker objects
+      community.docker.docker_prune:
+        volumes: true                      # Remove unused volumes
+        networks: true                      # Remove unused networks
+        images: true                       # Remove unused images
+        containers: true                    # Remove unused containers
