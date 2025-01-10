@@ -6,12 +6,12 @@
     - name: Pull images with docker-compose
       community.docker.docker_compose_v2:  # Use the updated module
         project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
-        command: pull                      # Specify the 'pull' command
+        pull: true                         # Pull the latest images 
 
     - name: Start containers in detached mode
       community.docker.docker_compose_v2:  # Use the updated module
         project_src: "{{ compose_file }}"  # Use the 'compose_file' variable from inventory
-        command: up                       # Specify the 'up' command
+        state: present                     # Ensure containers are running
         detach: true                      # Run containers in the background
 
     - name: Prune unused Docker objects
