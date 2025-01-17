@@ -1,8 +1,8 @@
 ---
 # This playbook updates and upgrades an OPNsense firewall using the API.
 
-- name: Update and upgrade OPNsense firewall using API key from file
-  hosts: opnsense  # Target group of OPNsense firewalls
+- name: Update and upgrade OPNsense firewall
+  hosts: opnsense_firewalls  # Target group of OPNsense firewalls
   become: true  # Run tasks with elevated privileges
 
   vars:
@@ -18,37 +18,37 @@
 
     # Update the package repository list
     - name: Run pkg update
-      ansibleguy.opnsense.opnsense_command:
-        api_key: "{{ opnsense_api_credentials.key }}"  # Use API key for authentication
-        api_secret: "{{ opnsense_api_credentials.secret }}"  # Use API secret for authentication
-        command: pkg update -f  # Force update of the repository list
-      register: pkg_update_result  # Store the result of the command
+      ansibleguy.opnsense.package:
+        action: 'update'
+        api_key: "{{ opnsense_api_credentials.key }}"
+        api_secret: "{{ opnsense_api_credentials.secret }}"
 
     # Check for available package upgrades (dry-run)
     - name: Check for updates
-      ansibleguy.opnsense.opnsense_command:
+      ansibleguy.opnsense.package:
+        action: 'upgrade'
         api_key: "{{ opnsense_api_credentials.key }}"
         api_secret: "{{ opnsense_api_credentials.secret }}"
-        command: pkg upgrade -n  # Simulate upgrade to see available updates
+        dry_run: True
       register: pkg_upgrade_check_result  # Store the result of the command
 
     # Display the list of available updates
     - name: Display available updates
       debug:
-        msg: "{{ pkg_upgrade_check_result.stdout }}"  # Print the output of the upgrade check
+        msg: "{{ pkg_upgrade_check_result.data }}"  # Print the output of the upgrade check
 
     # Upgrade packages if updates are available
     - name: Upgrade packages
-      ansibleguy.opnsense.opnsense_command:
+      ansibleguy.opnsense.package:
+        action: 'upgrade'
         api_key: "{{ opnsense_api_credentials.key }}"
         api_secret: "{{ opnsense_api_credentials.secret }}"
-        command: pkg upgrade -y  # Upgrade packages automatically
-      when: pkg_upgrade_check_result.stdout != ""  # Only run if there are updates
+      when: pkg_upgrade_check_result.data != []  # Only run if there are updates
 
     # Reboot the firewall to apply updates
     - name: Reboot OPNsense firewall
-      ansibleguy.opnsense.opnsense_command:
+      ansibleguy.opnsense.package:
+        action: 'reboot'
         api_key: "{{ opnsense_api_credentials.key }}"
         api_secret: "{{ opnsense_api_credentials.secret }}"
-        command: reboot  # Reboot the firewall
-      when: pkg_upgrade_check_result.stdout != ""  # Only run if there are updates
+      when: pkg_upgrade_check_result.data != []  # Only run if there are updates
