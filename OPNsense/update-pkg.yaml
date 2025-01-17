@@ -5,7 +5,7 @@
   hosts: localhost  # Target group of OPNsense firewalls
   gather_facts: no
   module_defaults:
-    group/ansibleguy.opnsense.all:
+    ansibleguy.opnsense.system:
       firewall: '10.1.0.1'
       api_credential_file: '/home/manu/.secret/opnsense_landstr.key'
   
