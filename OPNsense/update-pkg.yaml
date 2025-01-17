@@ -16,3 +16,9 @@
 #        firewall: '10.1.0.1'
 #        api_credential_file: '/home/manu/.secret/opnsense_landstr.key'
         action: 'update'
+
+    - name: Start upgrade # will wait until finished (WARNING: ONLY USE IN TEST-ENVIRONMENTS)
+      ansibleguy.opnsense.system:
+        action: 'upgrade'
+        timeout: 180  # depends on your download speed and firmware-version
+        force_upgrade: true
