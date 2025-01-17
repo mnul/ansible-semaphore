@@ -2,6 +2,8 @@ all:
   children:
     land:  # Devices on Landstraße location
       hosts:
+        opnsense-land: 
+          ansible_host: 10.0.0.1
         nas:
           ansible_host: 10.0.0.20
         unifi:
@@ -44,12 +46,12 @@ all:
         filesrv:
           ansible_host: 10.0.0.254 
       children:
-        fileserver:
+        fileserver:    # Svers that share files over SMB
           hosts:
             nas:
             media:            
             filesrv:
-        docker:
+        docker:    # Docker hosts
           hosts:
             docker-core:
             paperless:
@@ -67,6 +69,7 @@ all:
           hosts:
             argon:
             #pbs:
+            opnsense-land:
         debian:
           hosts:
             nas:
@@ -87,14 +90,20 @@ all:
         ubuntu:
           hosts:
             unifi:
+        opnsense:  # Firewall
+          hosts:
+            opnsense-land:
     exposed:  # Devices accessible from the internet
       hosts:
         docker-core:
         immich:
         joplin:           
         jdown:
+        opnsense-land:
     see:  # Devices on Seestraße location
       hosts:
+        opnsense-see:
+          ansible_host: 10.1.0.1
         futro-seestr: 
           ansible_host: 10.1.0.5
         unifi-see: 
@@ -106,16 +115,23 @@ all:
         bare_metal:
           hosts:
             futro-seestr: 
-            omv: 
+            omv:
+            opnsense-see: 
         ubuntu:
           hosts:
             unifi-see: 
         debian:
           hosts:
             omv: 
-        fileserver:
+        fileserver:    # Svers that share files over SMB
           hosts:
             omv: 
-        docker:
+        docker:    # Docker hosts
           hosts:
             omv:
+        opnsense:  # Firewall
+          hosts:
+            opnsense-see:
+        exposed:  # Devices accessible from the internet
+          hosts:
+            opnsense-see:
