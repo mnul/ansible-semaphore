@@ -1,11 +1,10 @@
 ---
-collections:
-- ansibleguy
-
 # This playbook updates and upgrades an OPNsense firewall using the API.
 - name: Update and upgrade OPNsense firewall
   hosts: localhost  # Target group of OPNsense firewalls
   gather_facts: no
+  collections:
+    - ansibleguy.opnsense
   # module_defaults:
   #   ansibleguy.opnsense.system:
   #     firewall: '10.1.0.1'
