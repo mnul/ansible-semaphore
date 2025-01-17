@@ -1,6 +1,6 @@
 ---
-#collections:
-#  - ansibleguy.opnsense
+collections:
+  - ansibleguy.opnsense
 # This playbook updates and upgrades an OPNsense firewall using the API.
 
 - name: Update and upgrade OPNsense firewall
