@@ -44,14 +44,16 @@ all:
         media:
           ansible_host: 10.11.0.3
         filesrv:
-          ansible_host: 10.0.0.254 
+          ansible_host: 10.0.0.254
+        tvheadend:  
+          ansible_host: 10.11.0.6 
       children:
-        fileserver:    # Svers that share files over SMB
+        fileserver:   # Servers that share files over SMB
           hosts:
             nas:
             media:            
             filesrv:
-        docker:    # Docker hosts
+        docker:   # Docker hosts
           hosts:
             docker-core:
             paperless:
@@ -62,7 +64,8 @@ all:
             jdown:            
             speedtest:        
             send:             
-            netboot:          
+            netboot:
+            tvheadend:  # Added to docker group         
           vars: 
             compose_file: /docker  # General variable for docker hosts
         bare_metal:
@@ -86,7 +89,8 @@ all:
             semaphore:        
             netboot:          
             media:            
-            filesrv:          
+            filesrv:
+            tvheadend:    
         ubuntu:
           hosts:
             unifi:
@@ -123,10 +127,10 @@ all:
         debian:
           hosts:
             omv: 
-        fileserver:    # Svers that share files over SMB
+        fileserver:   # Servers that share files over SMB
           hosts:
             omv: 
-        docker:    # Docker hosts
+        docker:   # Docker hosts
           hosts:
             omv:
         opnsense:  # Firewall
