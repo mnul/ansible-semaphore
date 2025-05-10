@@ -4,6 +4,8 @@ all:
       hosts:
         opnsense-land: 
           ansible_host: 10.0.0.1
+        authentik:
+          ansible_host: 10.0.0.19
         nas:
           ansible_host: 10.0.0.20
         unifi:
@@ -55,6 +57,7 @@ all:
             filesrv:
         docker:   # Docker hosts
           hosts:
+            authentik:
             docker-core:
             paperless:
             immich:
@@ -76,6 +79,7 @@ all:
         debian:
           hosts:
             nas:
+            authentik:
             docker-core:
             immich:
             rezepte:          
