@@ -12,17 +12,19 @@ all:
           ansible_host: 10.0.0.21
         docker-core:
           ansible_host: 10.0.0.22
+        netalertx:
+          ansible_host: 10.0.0.24
         sync:
           ansible_host: 10.0.0.26
         paperless:
           ansible_host: 10.0.0.30
-          compose_file: /home/paperless/paperless-ngx  # Specific variable for paperless
+          #compose_file: /home/paperless/paperless-ngx  # Specific variable for paperless
         immich:
           ansible_host: 10.0.0.47
         argon:
           ansible_host: 10.0.0.10
-        #pbs:
-        #  ansible_host: 10.0.0.14
+        pbs:
+          ansible_host: 10.0.0.14
         rezepte:
           ansible_host: 10.0.0.42
         joplin:
@@ -59,6 +61,7 @@ all:
           hosts:
             authentik:
             docker-core:
+            netalertx:
             paperless:
             immich:
             rezepte:
@@ -74,13 +77,14 @@ all:
         bare_metal:
           hosts:
             argon:
-            #pbs:
+            pbs:
             opnsense-land:
         debian:
           hosts:
             nas:
             authentik:
             docker-core:
+            netalertx:
             immich:
             rezepte:
             joplin:
